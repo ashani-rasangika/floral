@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Floral theme tokens (HSL only) */
+    --background: 40 33% 98%; /* warm ivory */
+    --foreground: 240 6% 10%; /* near-black */
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 6% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 6% 10%;
+
+    --primary: 340 70% 45%; /* rose */
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 340 70% 96%; /* rose tint */
+    --secondary-foreground: 340 75% 25%;
+
+    --muted: 25 20% 96%; /* warm neutral */
+    --muted-foreground: 215 16% 46.9%;
+
+    --accent: 142 30% 92%; /* leafy tint */
+    --accent-foreground: 142 30% 22%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 20 6% 90%;
+    --input: 20 6% 90%;
+    --ring: 340 70% 45%;
+
+    --radius: 0.75rem;
+
+    /* Sidebar (kept compatible) */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 340 70% 45%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 340 70% 96%;
+    --sidebar-accent-foreground: 340 75% 25%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 340 70% 45%;
+
+    /* Extras */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary) / 0.15), hsl(var(--accent) / 0.2));
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.25);
+    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.25);
+    /* Deep rose accents */
+    --primary-deep: 340 72% 36%;
+    --rose-dark: 340 65% 25%; /* attractive dark rose */
+    --rose-darker: 340 70% 18%; /* even darker rose */
+    --gradient-rose-deep: linear-gradient(135deg, hsl(var(--primary-deep)), hsl(var(--primary) / 0.9));
+    --gradient-rose-dark: linear-gradient(135deg, hsl(var(--rose-dark)), hsl(var(--rose-darker)));
+  }
+
+  .dark {
+    --background: 220 25% 6%;
+    --foreground: 0 0% 98%;
+
+    --card: 220 22% 10%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 220 22% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 350 75% 65%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 15% 16%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 220 15% 16%;
+    --muted-foreground: 215 20% 70%;
+
+    --accent: 142 24% 18%;
+    --accent-foreground: 142 30% 90%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 15% 18%;
+    --input: 220 15% 18%;
+    --ring: 350 75% 65%;
+
+    --sidebar-background: 220 20% 8%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 350 75% 65%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 15% 16%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 220 15% 16%;
+    --sidebar-ring: 350 75% 65%;
+
+    /* Deep rose accents (dark) */
+    --primary-deep: 350 70% 58%;
+    --rose-dark: 350 60% 45%; /* attractive dark rose for dark mode */
+    --rose-darker: 350 65% 35%; /* even darker rose for dark mode */
+    --gradient-rose-deep: linear-gradient(135deg, hsl(var(--primary-deep)), hsl(var(--primary)));
+    --gradient-rose-dark: linear-gradient(135deg, hsl(var(--rose-dark)), hsl(var(--rose-darker)));
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  .bg-hero-gradient {
+    background-image: var(--gradient-hero);
+  }
+  .bg-rose-deep-gradient {
+    background-image: var(--gradient-rose-deep);
+  }
+  .bg-rose-dark-gradient {
+    background-image: var(--gradient-rose-dark);
+  }
+  .elevated-card {
+    @apply bg-card/80 backdrop-blur-sm border shadow-[var(--shadow-elegant)];
+  }
+  .story-link {
+    @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+  }
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+  .animate-float-slow {
+    animation: float 6s ease-in-out infinite;
+  }
+  .font-display {
+    font-family: ui-serif, Georgia, 'Times New Roman', serif;
+    font-weight: 600;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) rotate(var(--rotation, 0deg));
+    }
+    50% {
+      transform: translateY(-10px) rotate(var(--rotation, 0deg));
+    }
+  }
+}
